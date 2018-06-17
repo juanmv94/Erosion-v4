@@ -1,0 +1,105 @@
+﻿<Window x:Class="erosion_v._4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Erosion v.4" Height="388" Width="681" Icon="a.ico" ResizeMode="CanMinimize">
+    <Window.Background>
+        <ImageBrush ImageSource="WDF_1046037.jpg"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid>
+            <Menu IsMainMenu="True" VerticalAlignment="Top" Height="22">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open File" Click="Open_Click"/>
+                    <MenuItem Header="_Delete All Backups" Click="DeleteAllBackups_Click"/>
+                    <MenuItem Header="_Exit" Click="Exit_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="What can I do with Erosion?" Click="WhatToDo_Click"/>
+                    <MenuItem Header="How to use Erosion" Click="HowToUse_Click"/>
+                    <MenuItem Header="About" Click="About_Click"/>
+                </MenuItem>
+            </Menu>
+            <GroupBox Name="filepath" Header="Load a file..." FontSize="18" Foreground="Red" HorizontalAlignment="Left" Height="303" Margin="4,22,0,0" VerticalAlignment="Top" Width="486"/>
+            <Image HorizontalAlignment="Left" Margin="229,159,0,0" VerticalAlignment="Top" Source="eegg.png" Height="44" Width="44"/>
+            <Image Name="sml" HorizontalAlignment="Left" Margin="227,157,0,0" VerticalAlignment="Top" Source="a.ico" Height="48" Width="48" MouseRightButtonUp="eegg"/>
+            <Label Name="sizehex" Content="Size (hex):" Foreground="DarkBlue" FontWeight="Bold" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,51,0,0"/>
+            <Label Name="sizedec" Content="Size (dec):" Foreground="DarkBlue" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,75,0,0"/>
+            <Label Name="crc" Content="CRC32:" Foreground="DarkBlue" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,99,0,0"/>
+
+            <GroupBox Header="Range of Erosion (hex)" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="77" Width="310" RenderTransformOrigin="0.5,-1.132">
+                <Grid>
+                    <Label Content="Start: 0x" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" />
+                    <Label Content="End:  0x" HorizontalAlignment="Left" Margin="6,24,0,0" VerticalAlignment="Top"/>
+                    <Slider Name="Startsl" IsEnabled="False" HorizontalAlignment="Left" Margin="138,0,0,0" VerticalAlignment="Top" Width="157" ValueChanged="Startsl_ValueChanged" SmallChange="1"/>
+                    <Slider Name="Endsl" IsEnabled="False"  HorizontalAlignment="Left" Margin="138,26,0,0" VerticalAlignment="Top" Width="157" ValueChanged="Endsl_ValueChanged" SmallChange="1"/>
+                    <TextBox HorizontalAlignment="Left" Name="startof" IsEnabled="False" Height="23" Margin="52,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TextChanged="startof_TextChanged"/>
+                    <TextBox HorizontalAlignment="Left" Name="endof" IsEnabled="False" Height="23" Margin="52,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TextChanged="endof_TextChanged"/>
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox Header="Log Window" HorizontalAlignment="Left" Margin="495,27,0,0" VerticalAlignment="Top" Height="258" Width="165">
+                <Grid>
+                    <TextBox Name="log" ScrollViewer.VerticalScrollBarVisibility="Visible" FontSize="10"  IsReadOnly="True" Margin="0,0,0,30" Background="Black" AcceptsReturn="True">
+                        <TextBox.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF686868" Offset="0"/>
+                                <GradientStop Color="White" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBox.Foreground>
+                    </TextBox>
+                    <Button Content="Save log as .txt" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="100" Click="Savetxt_Click"/>
+                    <Button Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="50" Click="Clearlog_Click"/>
+                </Grid>
+            </GroupBox>
+            <TextBox HorizontalAlignment="Left" IsReadOnly="True" FontSize="11" Height="20" Margin="4,328,0,0" VerticalAlignment="Top" Width="658" Background="#FFCCCCCC" Text="Erosion v.4 by Juanmv94  --  Based on Syizm program  --  http://tragicomedy-hellin.blogspot.com"/>
+            <GroupBox Header="Erode filter:" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Height="100" Width="208">
+                <Grid>
+                    <TextBox Name="bytefil1" Text="21" Panel.ZIndex="1" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="108,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <TextBox Name="bytefil2" Text="0" Panel.ZIndex="1" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="108,52,0,-2" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <TextBox Name="bytefil3" Text="255" Panel.ZIndex="1" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="157,52,0,-2" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <RadioButton Name="filternone" Panel.ZIndex="0" IsChecked="True" Content="None (default)" HorizontalAlignment="Right" Margin="0,5,98,0" VerticalAlignment="Top" Checked="filternone_Checked"/>
+                    <RadioButton Name="filterbyte" Panel.ZIndex="0" Content="Only byte ==" HorizontalAlignment="Left" Margin="5,30,0,0" VerticalAlignment="Top" Checked="filterbyte_Checked"/>
+                    <RadioButton Name="filterrange" Panel.ZIndex="0" Content="Range of bytes             to" HorizontalAlignment="Left" Margin="5,55,0,0" VerticalAlignment="Top" Checked="filterrange_Checked"/>
+                    
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Erode interval:" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top" Height="88" Width="244">
+                <Grid>
+
+                    <TextBox Name="interpred" HorizontalAlignment="Left" Height="23" Margin="99,7,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="50" TextChanged="rangefield_TextChanged"/>
+                    <TextBox Panel.ZIndex="1" Name="interr1" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="99,32,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="50" TextChanged="rangefield_TextChanged"/>
+                    <TextBox Panel.ZIndex="1" Name="interr2" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="169,32,0,0" TextWrapping="Wrap" Text="2000" VerticalAlignment="Top" Width="50" TextChanged="rangefield_TextChanged"/>
+                    <RadioButton Name="Interpred" IsChecked="True" Content="Predefined:" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Checked="Interpred_Checked"/>
+                    <RadioButton Panel.ZIndex="0" Name="Interr" Content="Random from                  to" HorizontalAlignment="Left" Margin="5,35,0,0" VerticalAlignment="Top" Checked="Interr_Checked"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="New byte value:" HorizontalAlignment="Left" Margin="285,128,0,0" VerticalAlignment="Top" Height="140" Width="196">
+                <Grid>
+                    <TextBox Name="val1" HorizontalAlignment="Left" Height="23" Margin="98,2,0,0" TextWrapping="Wrap" Text="63" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <TextBox Name="val2" Panel.ZIndex="1" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="98,42,0,0" TextWrapping="Wrap" Text="60" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <TextBox Name="val3" Panel.ZIndex="1" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="148,42,0,0" TextWrapping="Wrap" Text="70" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <TextBox Name="val4" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="98,70,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="32" TextChanged="bytefield_TextChanged"/>
+                    <RadioButton Name="valuespec" IsChecked="True" Content="Specific byte:" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Checked="value_Checked"/>
+                    <RadioButton Name="valuerand" Content="Random byte" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top" Checked="value_Checked"/>
+                    <RadioButton Name="valuerfrom" Panel.ZIndex="0" Content="Random from            to" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top" Checked="value_Checked"/>
+                    <RadioButton Name="valueincr" Content="Increase/" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top" Checked="value_Checked"/>
+                    <RadioButton Name="valuedecr" Content="Decrease" HorizontalAlignment="Left" Margin="5,78,0,0" VerticalAlignment="Top" Checked="value_Checked"/>
+                    <RadioButton Name="valueinv" Content="Invert byte" HorizontalAlignment="Left" Margin="5,98,0,0" VerticalAlignment="Top" Checked="value_Checked"/>
+                </Grid>
+            </GroupBox>
+            <Button Content="Erode" FontSize="18" HorizontalAlignment="Left" Margin="401,284,0,0" VerticalAlignment="Top" Width="80" Height="32" Click="Erode_Click" BorderBrush="Red"/>
+            <Button Content="Restore" FontSize="14" HorizontalAlignment="Left" Margin="341,290,0,0" VerticalAlignment="Top" Width="55" Height="26" Click="Restore_Click"/>
+            <CheckBox Name="RestoreBeforeReErode" IsChecked="True"  Content="Restore before re-Erode" HorizontalAlignment="Left" Margin="500,307,0,0" VerticalAlignment="Top"/>
+            <CheckBox Name="Backupfile" IsChecked="True" Content="Backup file" HorizontalAlignment="Left" Margin="500,290,0,0" VerticalAlignment="Top" Click="Backupfile_Checked" />
+            
+
+
+
+        </Grid>
+
+
+
+    </Grid>
+</Window>
